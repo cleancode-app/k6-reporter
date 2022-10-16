@@ -15,7 +15,10 @@ const version = '2.3.0'
 export function htmlReport(data, opts = {}) {
   // Default options
   if (!opts.title) {
-    opts.title = new Date().toISOString().slice(0, 16).replace('T', ' ')
+    opts.title = `K6 Load Test: ${new Date().toISOString().slice(0, 16).replace('T', ' ')}`
+  }
+  if (!opts.url) {
+    opts.url = ''
   }
   // eslint-disable-next-line
   if (!opts.hasOwnProperty('debug')) {
@@ -96,6 +99,7 @@ export function htmlReport(data, opts = {}) {
   const html = ejs.render(template, {
     data,
     title: opts.title,
+    url: opts.url,
     standardMetrics,
     otherMetrics,
     thresholdFailures,
